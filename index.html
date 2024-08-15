@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarun and Eehita's Roka Ceremony</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@600&display=swap');
+
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background: 
+                url('IMG_3303.jpeg') center/cover no-repeat; /* Main image with cover */
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            height: 100vh; /* Full viewport height */
+            width: 100vw; /* Full viewport width */
+            overflow: hidden; /* Hide scrollbars */
+            background-attachment: fixed; /* Keep the image fixed during scroll */
+            position: relative; /* Position relative for absolute children */
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            color: #d4af37;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            position: absolute;
+            top: 20%; /* Default position for larger screens */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%; /* Ensure title width is larger than container */
+            background-color: rgba(0, 0, 0, 0.6); /* Darker background for better contrast */
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            text-align: center;
+            color: #d4af37;
+            margin: 0;
+            padding-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .container {
+            position: fixed;
+            bottom: 0; /* Move to the bottom of the viewport */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque background */
+            border-radius: 8px;
+            max-width: 80%; /* Adjust for smaller screens */
+            width: auto; /* Width adapts to content */
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 80%; /* Adjust to fit the container width */
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #b5942a;
+        }
+
+        .view-tables-button {
+            display: block;
+            padding: 10px 20px;
+            background-color: #ffcc00; /* Bright background color for better visibility */
+            color: #333;
+            border: 2px solid #b5942a;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            margin-top: 10px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .view-tables-button:hover {
+            background-color: #ffd633;
+        }
+
+        .output {
+            margin-top: 5px;
+            font-size: 14px; /* Smaller font for a minimal look */
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 28px; /* Adjust title size for smaller screens */
+                top: 10%; /* Adjust title position relative to the top center of the main image */
+                width: 100%; /* Ensure the title width spans across the screen */
+                padding: 10px;
+            }
+
+            .subtitle {
+                font-size: 20px; /* Adjust subtitle size for smaller screens */
+            }
+
+            .container {
+                max-width: 90%; /* Adjust for smaller screens */
+                bottom: 0; /* Ensure container stays at the bottom */
+            }
+
+            input[type="text"] {
+                font-size: 12px;
+            }
+
+            button {
+                font-size: 12px;
+            }
+
+            .output {
+                font-size: 12px;
+            }
+
+            .view-tables-button {
+                font-size: 14px; /* Adjust button size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1 class="title">Tarun and Eehita's<br>Roka Ceremony</h1>
+
+<div class="container">
+    <input type="text" id="firstNameInput" placeholder="Enter your first name">
+    <button onclick="findTable()">Find Table</button>
+    <div class="output" id="output"></div>
+    <a href="tables.html" class="view-tables-button">View All Tables</a>
+</div>
+
+<script src="data.js"></script>
+<script>
+    function findTable() {
+        const firstName = document.getElementById('firstNameInput').value.trim().toLowerCase();
+        const outputDiv = document.getElementById('output');
+        const results = [];
+
+        for (const [table, names] of Object.entries(tableAssignments)) {
+            for (const name of names) {
+                const nameParts = name.toLowerCase().split(' ');
+                if (nameParts.some(part => part === firstName)) {
+                    results.push({ name, table });
+                }
+            }
+        }
+
+        if (results.length > 0) {
+            outputDiv.innerHTML = results.map(result => `Hello ${result.name}, you are seated at Table ${result.table}.`).join('<br>');
+        } else {
+            outputDiv.innerHTML = "Sorry, we couldn't find your name in the list. Please check the spelling or try to find your name on the tables page.";
+        }
+    }
+</script>
+
+</body>
+</html>
