@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Groupings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: left; /* Align content to the left */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            text-align: left; /* Header text aligned to the left */
+        }
+
+        td {
+            text-align: left; /* Default text alignment */
+        }
+
+        td.table-number {
+            text-align: center; /* Center-align table numbers */
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #b5942a;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti div {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(255, 223, 0, 1) 0%, rgba(255, 184, 108, 1) 50%, rgba(255, 140, 0, 1) 100%);
+            opacity: 0.8;
+            animation: fall linear infinite, sparkle 1s infinite, rotate 3s linear infinite;
+            transform-origin: left top;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            100% {
+                top: 110%;
+                transform: translateX(var(--randomX)) rotate(720deg);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti">
+        <!-- Confetti will be generated here by JavaScript -->
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="back-button">Back to Home</a>
+        <h1>Table Groupings</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Table Number</th>
+                    <th>Names</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        // Function to generate random integer within a range
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        // Function to generate random color within white to gold gradient
+        function getRandomColor() {
+            const colors = [
+                'rgba(255, 255, 255, 1)',   // White
+                'rgba(255, 250, 240, 1)',   // Floral White
+                'rgba(255, 240, 200, 1)',   // Papaya Whip
+                'rgba(255, 223, 186, 1)',   // Peach Puff
+                'rgba(255, 204, 128, 1)',   // Light Goldenrod
+                'rgba(255, 194, 102, 1)',   // Gold
+                'rgba(255, 215, 0, 1)'      // Golden Yellow
+            ];
+            return colors[getRandomInt(0, colors.length)];
+        }
+
+        // Function to generate confetti
+        function generateConfetti() {
+            const confettiContainer = document.querySelector('.confetti');
+            const confettiCount = 100; // Optimal number for smoother rendering on phones
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                const size = getRandomInt(6, 12); // Random size for variation
+                const position = getRandomInt(0, 100); // Random position across width
+                const delay = getRandomInt(0, 3000); // Random animation delay
+                const duration = getRandomInt(4000, 7000); // Random fall duration
+                const randomX = getRandomInt(-30, 30); // Random horizontal movement
+
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.left = `${position}vw`;
+                confetti.style.background = getRandomColor();
+                confetti.style.animationDelay = `${delay}ms`;
+                confetti.style.animationDuration = `${duration}ms`;
+                confetti.style.setProperty('--randomX', `${randomX}vw`);
+
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // Call the function to generate confetti on page load
+        generateConfetti();
+
+        // Function to generate table data
+        function generateTable() {
+            const tbody = document.querySelector('table tbody');
+            const tableGroups = {};
+
+            // Group names by table number
+            for (const [table, names] of Object.entries(tableAssignments)) {
+                if (!tableGroups[table]) {
+                    tableGroups[table] = [];
+                }
+                tableGroups[table].push(names);
+            }
+
+            // Generate table rows
+            for (const [table, names] of Object.entries(tableGroups)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td class="table-number">${table}</td>
+                <td>${names.flat().sort().join(', ')}</td> <!-- Alphabetical sorting -->
+            `;
+                tbody.appendChild(row);
+            }
+        }
+
+        // Generate the table on page load
+        generateTable();
+    </script>
+</body>
+</html>
