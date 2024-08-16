@@ -26,7 +26,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: #efe5e3; /* Updated table color */
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
@@ -37,7 +37,7 @@
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #dcd1cf; /* Slightly darker for contrast */
             text-align: left; /* Header text aligned to the left */
         }
 
@@ -47,24 +47,28 @@
 
         td.table-number {
             text-align: center; /* Center-align table numbers */
+            width: 50px; /* Minimal width for table number column */
         }
 
         .back-button {
             display: block;
-            width: 100%;
+            max-width: 100%; /* Ensure button width doesn't exceed table */
+            width: calc(100% - 30px); /* Match button width to table */
             padding: 10px;
             text-align: center;
-            background-color: #d4af37;
+            background-color: #38634a;
             color: white;
             border: none;
             border-radius: 4px;
             font-size: 16px;
             text-decoration: none;
             margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto; /* Center-align button */
         }
 
         .back-button:hover {
-            background-color: #b5942a;
+            background-color: #38634a;
         }
 
         @media (max-width: 600px) {
@@ -75,11 +79,11 @@
 
         /* Confetti Animation */
         .confetti {
-            position: absolute;
+            position: fixed; /* Change to fixed to cover full scrollable area */
             top: 0;
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100%;
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
@@ -89,9 +93,9 @@
             position: absolute;
             width: 8px;
             height: 8px;
-            background: radial-gradient(circle, rgba(255, 223, 0, 1) 0%, rgba(255, 184, 108, 1) 50%, rgba(255, 140, 0, 1) 100%);
+            background: radial-gradient(circle, rgba(255, 105, 180, 1) 0%, rgba(60, 179, 113, 1) 100%); /* Pink to green gradient */
             opacity: 0.8;
-            animation: fall linear infinite, sparkle 1s infinite, rotate 3s linear infinite;
+            animation: fall 10s linear infinite, sparkle 5s infinite, rotate 3s linear infinite;
             transform-origin: left top;
         }
 
@@ -101,7 +105,7 @@
                 transform: translateX(0) translateY(0) rotate(0deg);
             }
             100% {
-                top: 110%;
+                top: calc(100vh + 100%); /* Falls all the way down */
                 transform: translateX(var(--randomX)) rotate(720deg);
             }
         }
@@ -154,16 +158,15 @@
             return Math.floor(Math.random() * (max - min)) + min;
         }
 
-        // Function to generate random color within white to gold gradient
+        // Function to generate random color within pink to green gradient
         function getRandomColor() {
             const colors = [
-                'rgba(255, 255, 255, 1)',   // White
-                'rgba(255, 250, 240, 1)',   // Floral White
-                'rgba(255, 240, 200, 1)',   // Papaya Whip
-                'rgba(255, 223, 186, 1)',   // Peach Puff
-                'rgba(255, 204, 128, 1)',   // Light Goldenrod
-                'rgba(255, 194, 102, 1)',   // Gold
-                'rgba(255, 215, 0, 1)'      // Golden Yellow
+                'rgba(255, 182, 193, 1)',   // Light Pink
+                'rgba(255, 105, 180, 1)',   // Hot Pink
+                'rgba(255, 20, 147, 1)',    // Deep Pink
+                'rgba(173, 255, 47, 1)',    // Green Yellow
+                'rgba(50, 205, 50, 1)',     // Lime Green
+                'rgba(60, 179, 113, 1)'     // Medium Sea Green
             ];
             return colors[getRandomInt(0, colors.length)];
         }
