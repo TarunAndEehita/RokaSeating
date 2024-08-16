@@ -11,7 +11,7 @@ const tableAssignments = {
     10: ['Arvind', 'Krishna Bhuri', 'Krishn Bhuri', 'Mr Sabarwal', 'Neeraj Verma', 'Nirmal Sabarwal', 'Ranjev', 'Rekha', 'Sarita Verma', 'Seema'],
     11: ['Gajender', 'Indu', 'Kashmiri Lal', 'Raj', 'Sonia', 'Subhash', 'Urmil Sharda'],
     12: ['Aamodini', 'Ajay', 'Amit', 'Anju', 'Arjun', 'Geetika', 'Raj Rani', 'Ridhi', 'Ritika', 'Sarita'],
-    13: ['Ashwani', 'Jasbir Kaur', 'Mohini Suri', 'Nisha', 'Parveen', 'Ramesh Mehra', 'Savita', 'Shyam', 'TP Singh'],
+    13: ['Ashwani', 'Jasbir Kaur', 'Mohini Suri', 'Nisha', 'Parveen', 'Ramesh Mehra', 'Savita', 'Shyam', 'Tej Pratap Singh'],
     14: ['Manya', 'Neeraj Chhabra', 'Nina', 'Sonia Chhabra', 'Sunita', 'Surinder', 'Tanish Chhabra'],
     15: ['Aman', 'Archna', 'Dharmendra', 'Inder', 'Madhu', 'Shelly', 'Shubra', 'Shubra Mom', 'Sunil', 'Vandna'],
     16: ['Dr. Rajesh', 'Hemant', 'Pooja', 'Rajni', 'Renu', 'Sandeep Satiza and Family', 'Satish Puri', 'Vijay'],
